@@ -1,0 +1,172 @@
+setButtonPercentage.addEventListener('click', function(event) {
+  hot.setCellMetaObject(1, 1, {
+  	dataType: 'numeric',
+    type: 'numeric',
+    numericFormat: {
+      pattern: {
+        output: "percent",
+        mantissa: 0
+      }
+    }
+  });
+  hot.render();
+})
+
+
+var data = [
+  ['', 'Ford', 'Tesla', 'Toyota', 'Honda'],
+  ['2017', 10, 11, 12, "=SUM(B2:D2)"],
+  ['2018', 20, 11, 14, 13],
+  ['2019', 30, 15, 12, 13]
+];
+
+var container = document.getElementById('example');
+
+var hot = new Handsontable(container, {
+  data: data,
+  rowHeaders: true,
+  colHeaders: true,
+  filters: true,
+  dropdownMenu: true,
+  outsideClickDeselects: false,
+  selectionMode: 'multiple',
+  formulas: true,
+  licenseKey: 'non-commercial-and-evaluation'
+});
+
+var setButtonPercentage = document.getElementById('btnPercentage');
+setButtonPercentage.addEventListener('click', function(event) {
+  hot.setCellMetaObject(1, 1, {
+  	dataType: 'numeric',
+    type: 'numeric',
+    numericFormat: {
+      pattern: {
+        output: "percent",
+        mantissa: 0
+      }
+    }
+  });
+  hot.render();
+})
+
+var setButtonCurrency = document.getElementById('btnCurrency');
+setButtonCurrency.addEventListener('click', function(event) {
+  hot.setCellMetaObject(1, 1, {
+  	dataType: 'numeric',
+    type: 'numeric',
+    numericFormat: {
+      pattern: '0,0.00 $',
+      culture: 'de-DE' // use this for EUR (German),
+    }
+  });
+  hot.render();
+})
+
+var setButtonText = document.getElementById('btnText');
+setButtonText.addEventListener('click', function(event) {
+  hot.setCellMetaObject(1, 1, {
+  	dataType: 'text',
+    className: '',
+    type: 'text'
+  });
+  hot.render();
+})
+
+var setButtonDate = document.getElementById('btnDate');
+setButtonDate.addEventListener('click', function(event) {
+  hot.setCellMetaObject(1, 1, {
+  	dataType: 'date',
+    type: 'date'
+  });
+  hot.render();
+})
+
+var setButtonNumeric = document.getElementById('btnNumeric');
+setButtonNumeric.addEventListener('click', function(event) {
+  hot.setCellMetaObject(1, 1, {
+  	dataType: 'numeric',
+    type: 'numeric',
+    numericFormat: null
+  });
+  hot.render();
+})
+
+
+
+
+const hot = new Handsontable(container, {
+    data: data,
+    formulas: {
+        engine: HyperFormula,
+      },
+    rowHeaders: true,
+    colHeaders: true,
+    cells: function(row, col){
+          console.log(row,col);
+            let cp = {}
+          if(col === 0){
+              cp.type = 'dropdown';
+            cp.className = 'redColor';
+          }
+          else {
+            cp.type = 'numeric';
+            cp.format =  '$0,0.00';        	        
+          }  
+          
+          return cp
+        },
+    height: 'auto',
+    licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+    });
+
+
+
+    https://handsontable.com/docs/numeric-cell-type/#basic-example
+    
+    
+
+    https://jsfiddle.net/pk7v124j/
+    examples for set currency, set percentage, set date, etc.
+
+
+    Change colors
+    this.setCellMeta(1,1, 'className', 'redColor');
+
+
+
+    "Changing text color"
+
+    <style>
+  .ipColor {
+    color: lightseagreen;
+  }
+  .opColor {
+    color: yellow;
+  }  
+</style>
+  const hot = new Handsontable(container, {
+    data: data,
+    formulas: {
+      engine: HyperFormula,
+    },
+    rowHeaders: true,
+    colHeaders: true,
+    height: 'auto',
+    cells(row, col) {
+      const cellProperties = {};
+      if (row === 0) {
+        cellProperties.renderer = firstRowRenderer;
+      }
+
+      if (col === 0) {
+        //cellProperties.renderer = firstRowRenderer;
+        if (row === 5) { cellProperties.className = 'opColor';} 
+        else { cellProperties.className = 'ipColor'; };
+        
+      }
+      
+      return cellProperties;
+    },
+    licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+  });
+
